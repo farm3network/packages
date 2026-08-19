@@ -1,0 +1,21 @@
+{
+  "version": "X.Y.Z",
+  "description": "Farm3 CLI (provider/consumer node runner)",
+  "homepage": "https://github.com/farm3network/packages",
+  "license": "Proprietary",
+  "architecture": {
+    "64bit": {
+      "url": "https://github.com/farm3network/packages/releases/download/vX.Y.Z/farm3-windows-amd64.zip",
+      "hash": "REPLACE_WITH_SHA256"
+    },
+    "arm64": {
+      "url": "https://github.com/farm3network/packages/releases/download/vX.Y.Z/farm3-windows-arm64.zip",
+      "hash": "REPLACE_WITH_SHA256"
+    }
+  },
+  "bin": [
+    "farm3.exe",
+    "farm3-provider.exe",
+    "farm3-consumer.exe"
+  ]
+}
