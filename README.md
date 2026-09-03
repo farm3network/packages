@@ -21,28 +21,43 @@ scoop install farm3network/farm3
 
 ## Run
 
-No flags needed — this joins the public Farm3 network by default:
+One command family per role. Public needs no private flags; private adds
+`-network` / `-psk` / `-private-relay` (provider and consumer) and a matching
+private relay multiaddr + PSK.
+
+### Public
 
 ```bash
 farm3 run provider
 farm3 run consumer
 ```
 
-### Other options
+Optional public relay override:
+
+```bash
+farm3 run provider -relay "<multiaddr>"
+farm3 run consumer -relay "<multiaddr>"
+```
+
+### Private
+
+Use the same `-network`, `-psk`, and `-private-relay` on provider and consumer:
+
+```bash
+farm3 run provider -network myorg -psk "$MYORG_PSK" -private-relay "$PRIVATE_RELAY"
+farm3 run consumer -network myorg -psk "$MYORG_PSK" -private-relay "$PRIVATE_RELAY"
+```
+
+### Flag reference
 
 | Command | What it does |
 |---|---|
 | `farm3 run provider` | Join the public Farm3 network as a provider (default) |
 | `farm3 run consumer` | Join the public Farm3 network as a consumer (default) |
-| `farm3 run provider -relay "<multiaddr>"` | Connect to a specific relay node instead of the public one |
-| `farm3 run provider -network "<id>" -psk "<base64>"` | Join a private network (use the same `-network`/`-psk` on both provider and consumer) |
+| `farm3 run provider -relay "<multiaddr>"` | Connect to a specific public relay instead of the default |
+| `farm3 run provider -network "<id>" -psk "<base64>" -private-relay "<multiaddr>"` | Join a private network as a provider |
+| `farm3 run consumer -network "<id>" -psk "<base64>" -private-relay "<multiaddr>"` | Join a private network as a consumer |
 | `farm3 run provider -h` / `farm3 run consumer -h` | Full flag reference |
-
-Example — private network:
-```bash
-farm3 run provider -network myorg -psk "$MYORG_PSK"
-farm3 run consumer -network myorg -psk "$MYORG_PSK"
-```
 
 ## Upgrade / uninstall
 
