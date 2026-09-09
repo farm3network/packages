@@ -6,12 +6,9 @@ Package manifests for the farm3 CLI — macOS, Linux, and Windows.
 
 **macOS / Linux (Homebrew):**
 ```bash
-brew tap farm3network/packages https://github.com/farm3network/packages
+brew tap farm3network/packages
 brew install farm3
 ```
-(The full URL is required here — Homebrew's `brew tap user/repo` shorthand
-only auto-resolves for repos named `homebrew-<repo>`, and this repo is
-intentionally just `packages` so it can also hold the Windows/Scoop manifest.)
 
 **Windows (Scoop):**
 ```powershell
