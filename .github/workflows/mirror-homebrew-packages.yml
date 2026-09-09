@@ -1,0 +1,31 @@
+name: Mirror to homebrew-packages
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: mirror-homebrew-packages
+  cancel-in-progress: true
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push mirror to farm3network/homebrew-packages
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.HOMEBREW_PACKAGES_DEPLOY_KEY }}
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -t ed25519,rsa github.com >> ~/.ssh/known_hosts
+          git remote add mirror git@github.com:farm3network/homebrew-packages.git
+          git push --force mirror "HEAD:main"
